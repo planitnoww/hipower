@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hi Power Gym & Organic Store</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Base Styles */
+    :root {
+      /* Light Theme (Shop) */
+      --shop-bg: #f8f9fa;
+      --shop-text: #333;
+      --shop-primary: #2e8b57;
+      --shop-primary-hover: #236b43;
+      --shop-card-bg: #fff;
+      --shop-card-border: #eee;
+      
+      /* Dark Theme (Gym) */
+      --gym-bg: #101218;
+      --gym-text: #fff;
+      --gym-primary: #9333ea;
+      --gym-primary-hover: #7e22ce;
+      --gym-card-bg: #1E2336;
+      --gym-card-border: #2d3748;
+      
+      /* Common */
+      --border-radius: 0.5rem;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      transition: var(--transition);
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Header Styles */
+    header {
+      padding: 1.5rem 0;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn {
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius);
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .btn-gym {
+      background-color: var(--gym-primary);
+      color: #fff;
+    }
+
+    .btn-gym:hover {
+      background-color: var(--gym-primary-hover);
+    }
+
+    .btn-shop {
+      background-color: var(--shop-primary);
+      color: #fff;
+    }
+
+    .btn-shop:hover {
+      background-color: var(--shop-primary-hover);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border: 1px solid currentColor;
+    }
+
+    .cart-btn {
+      position: relative;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: var(--shop-primary);
+      color: white;
+      font-size: 0.75rem;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Content Styles */
+    .content {
+      padding: 2rem 0;
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 3rem 0;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, var(--gym-primary), #e879f9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .shop-hero h1 {
+      background: linear-gradient(to right, var(--shop-primary), #3eb875);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 2rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero .btn {
+      padding: 0.75rem 2rem;
+      font-size: 1.1rem;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 3rem 0;
+      background-color: rgba(0, 0, 0, 0.05);
+      border-radius: var(--border-radius);
+      margin-bottom: 3rem;
+    }
+
+    .gym-features {
+      background-color: #151925;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 3rem;
+      background: linear-gradient(to right, var(--gym-primary), #e879f9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .shop-section .section-title {
+      background: linear-gradient(to right, var(--shop-primary), #3eb875);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background-color: var(--gym-card-bg);
+      border: 1px solid var(--gym-card-border);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .shop-section .feature-card {
+      background-color: var(--shop-card-bg);
+      border-color: var(--shop-card-border);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background-color: rgba(147, 51, 234, 0.1);
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gym-primary);
+    }
+
+    .shop-section .feature-icon {
+      background-color: rgba(46, 139, 87, 0.1);
+      color: var(--shop-primary);
+    }
+
+    .feature-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: #e2e8f0;
+    }
+
+    .shop-section .feature-title {
+      color: #333;
+    }
+
+    .feature-description {
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+
+    .shop-section .feature-description {
+      color: #666;
+    }
+
+    /* Trainers Section */
+    .trainers {
+      padding: 3rem 0;
+    }
+
+    .trainer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .trainer-card {
+      background-color: var(--gym-card-bg);
+      border: 1px solid var(--gym-card-border);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .trainer-card:hover {
+      transform: scale(1.03);
+    }
+
+    .trainer-image {
+      height: 200px;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .trainer-info {
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .trainer-badge {
+      display: inline-block;
+      background-color: rgba(147, 51, 234, 0.2);
+      color: #c4b5fd;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .trainer-name {
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+
+    .trainer-specialty {
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+
+    /* Membership Plans Section */
+    .membership {
+      padding: 3rem 0;
+      background-color: #151925;
+      border-radius: var(--border-radius);
+    }
+
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .plan-card {
+      position: relative;
+      background-color: var(--gym-card-bg);
+      border: 1px solid var(--gym-card-border);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .plan-card.popular {
+      border-color: var(--gym-primary);
+      background-color: rgba(147, 51, 234, 0.1);
+    }
+
+    .popular-badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: var(--gym-primary);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 0.25rem 0.75rem;
+      border-bottom-left-radius: var(--border-radius);
+    }
+
+    .plan-title {
+      font-size: 1.5rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .plan-price {
+      font-size: 1.8rem;
+      color: var(--gym-primary);
+      font-weight: bold;
+      margin-bottom: 0.25rem;
+    }
+
+    .plan-description {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .plan-features {
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      color: #e2e8f0;
+    }
+
+    .feature-item.unavailable {
+      color: #64748b;
+    }
+
+    .feature-icon {
+      margin-right: 0.5rem;
+    }
+
+    /* Testimonials Section */
+    .testimonials {
+      padding: 3rem 0;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .testimonial-card {
+      background-color: var(--gym-card-bg);
+      border: 1px solid var(--gym-card-border);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+    }
+
+    .testimonial-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 1rem;
+    }
+
+    .testimonial-meta h4 {
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+
+    .testimonial-meta p {
+      color: #94a3b8;
+      font-size: 0.8rem;
+    }
+
+    .testimonial-stars {
+      color: #eab308;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-text {
+      color: #e2e8f0;
+      font-style: italic;
+    }
+
+    /* Schedule Section */
+    .schedule {
+      padding: 3rem 0;
+      background-color: #151925;
+      border-radius: var(--border-radius);
+      margin-bottom: 3rem;
+    }
+
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow-x: auto;
+      display: block;
+    }
+
+    .schedule-table thead th {
+      background-color: #2A2E42;
+      color: #94a3b8;
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .schedule-table tbody tr:nth-child(odd) {
+      background-color: rgba(30, 35, 54, 0.5);
+    }
+
+    .schedule-table tbody tr:nth-child(even) {
+      background-color: rgba(30, 35, 54, 0.8);
+    }
+
+    .schedule-table tbody td {
+      padding: 0.75rem 1rem;
+      color: #e2e8f0;
+    }
+
+    .schedule-table tbody td:first-child {
+      font-weight: 500;
+      background-color: #2A2E42;
+    }
+
+    /* Shop Categories */
+    .categories {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .category-btn {
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius);
+      background-color: transparent;
+      border: 1px solid var(--shop-primary);
+      color: var(--shop-primary);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .category-btn.active {
+      background-color: var(--shop-primary);
+      color: white;
+    }
+
+    .category-btn:hover {
+      background-color: rgba(46, 139, 87, 0.1);
+    }
+
+    /* Product Grid */
+    .product-section-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background-color: white;
+      border: 1px solid #eee;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-image-container {
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .product-card:hover .product-image {
+      transform: scale(1.1);
+    }
+
+    .product-info {
+      padding: 1.25rem;
+    }
+
+    .product-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .product-title {
+      font-weight: 500;
+    }
+
+    .product-price {
+      font-weight: 600;
+      color: var(--shop-primary);
+    }
+
+    /* Footer Styles */
+    footer {
+      padding: 3rem 0 1.5rem;
+      position: relative;
+    }
+
+    .gym-footer {
+      background-color: #141822;
+      color: #94a3b8;
+    }
+
+    .shop-footer {
+      background-color: #f1f1f1;
+      color: #666;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-column h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: white;
+    }
+
+    .shop-footer .footer-column h3 {
+      color: #333;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.5rem;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .footer-links li:hover {
+      color: white;
+    }
+
+    .shop-footer .footer-links li:hover {
+      color: var(--shop-primary);
+    }
+
+    address {
+      font-style: normal;
+      line-height: 1.6;
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid #2d3748;
+      font-size: 0.875rem;
+    }
+
+    .shop-footer .copyright {
+      border-top-color: #ddd;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      background-color: white;
+      border-radius: var(--border-radius);
+      width: 90%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .modal-header {
+      padding: 1rem;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+    }
+
+    .cart-items {
+      max-height: 50vh;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 0.75rem;
+      margin-bottom: 0.75rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin: 1rem 0;
+      padding-top: 0.5rem;
+      border-top: 1px solid #eee;
+    }
+
+    .cart-empty {
+      text-align: center;
+      padding: 2rem 0;
+      color: #666;
+    }
+
+    .checkout-form {
+      margin-top: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .checkout-input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: var(--border-radius);
+      font-size: 0.9rem;
+    }
+
+    .checkout-hint {
+      font-size: 0.75rem;
+      color: #666;
+      margin-top: 0.25rem;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background-color: var(--shop-primary);
+      color: white;
+      border: none;
+      padding: 0.75rem;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .checkout-btn:hover {
+      background-color: var(--shop-primary-hover);
+    }
+
+    .checkout-btn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .cart-summary {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .cart-summary div {
+      margin-bottom: 0.25rem;
+    }
+
+    /* Utilities */
+    .animate-fade-in {
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .feature-grid, .trainer-grid, .plan-grid, .testimonial-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .schedule-table {
+        width: 100%;
+        overflow-x: auto;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .header-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .section-title {
+        font-size: 1.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="brand" id="brandName">Hi Power Gym</div>
+        <div class="nav-buttons">
+          <button id="gymBtn" class="btn btn-gym">
+            <i class="fas fa-dumbbell"></i> Gym
+          </button>
+          <button id="shopBtn" class="btn btn-outline">
+            <i class="fas fa-shopping-cart"></i> Shop
+          </button>
+          <button id="cartBtn" class="btn btn-outline cart-btn" style="display:none;">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="mainContent" class="container">
+    <!-- Content will be dynamically loaded here -->
+  </main>
+
+  <footer id="footer" class="gym-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h3 id="footerBrand">Hi Power Gym</h3>
+          <p>Transforming bodies and minds since 2020.</p>
+        </div>
+
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li>Home</li>
+            <li>About Us</li>
+            <li id="footerSpecific1">Classes</li>
+            <li id="footerSpecific2">Trainers</li>
+            <li id="footerSpecific3">Schedule</li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Support</h3>
+          <ul class="footer-links">
+            <li>Contact Us</li>
+            <li>FAQ</li>
+            <li>Privacy Policy</li>
+            <li>Terms of Service</li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Contact</h3>
+          <address id="footerAddress">
+            123 Fitness Avenue<br>
+            New York, NY 10001<br><br>
+            Phone: (123) 456-7890<br>
+            Email: info@hipowergym.com
+          </address>
+        </div>
+      </div>
+
+      <div class="copyright">
+        <p>&copy; 2025 <span id="footerCopyright">Hi Power Gym</span>. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cart Modal -->
+  <div id="cartModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Your Cart</h3>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="cartItems" class="cart-items">
+          <!-- Cart items will be added here -->
+        </div>
+
+        <div id="cartTotal" class="cart-total" style="display:none;">
+          <span>Total:</span>
+          <span>$0.00</span>
+        </div>
+
+        <div id="checkoutForm" class="checkout-form" style="display:none;">
+          <div class="form-group">
+            <input type="text" id="whatsappNumber" class="checkout-input" placeholder="WhatsApp Number (with country code)">
+            <p class="checkout-hint">e.g. +1234567890</p>
+          </div>
+          <button id="checkoutBtn" class="checkout-btn">Checkout with WhatsApp</button>
+        </div>
+
+        <div id="cartSummary" class="cart-summary">
+          <div><strong>Total Items:</strong> <span id="totalItems">0</span></div>
+          <div><strong>Total:</strong> <span id="summaryTotal">$0.00</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // App State
+    const state = {
+      activeSection: 'gym',  // 'gym' or 'shop'
+      activeShopCategory: 'cosmetics', // 'cashew', 'cosmetics', 'candies', 'beverages', 'snacks'
+      cart: [],
+      whatsappNumber: ''
+    };
+
+    // Data
+    const data = {
+      trainers: [
+        { 
+          name: "Alex Reynolds", 
+          specialty: "Strength & Conditioning", 
+          image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1470&auto=format&fit=crop" 
+        },
+        { 
+          name: "Sarah Johnson", 
+          specialty: "Cardio & HIIT Specialist", 
+          image: "https://images.unsplash.com/photo-1609899424411-32a845e30640?q=80&w=1374&auto=format&fit=crop" 
+        },
+        { 
+          name: "Michael Chen", 
+          specialty: "Nutrition & Wellness Coach", 
+          image: "https://images.unsplash.com/photo-1594381898411-846e7d193883?q=80&w=1374&auto=format&fit=crop" 
+        },
+      ],
+      membershipPlans: [
+        {
+          title: "Basic",
+          price: "$29.99/month",
+          description: "Perfect for beginners",
+          features: ["Access to gym floor", "Standard equipment", "Locker access"],
+          notIncluded: ["Personal training", "Group classes"],
+          popular: false,
+        },
+        {
+          title: "Pro",
+          price: "$49.99/month",
+          description: "For dedicated fitness enthusiasts",
+          features: ["24/7 gym access", "All equipment access", "Locker access", "2 PT sessions/month", "Unlimited group classes"],
+          notIncluded: [],
+          popular: true,
+        },
+        {
+          title: "Elite",
+          price: "$79.99/month",
+          description: "The ultimate fitness experience",
+          features: ["24/7 gym access", "All equipment access", "Premium locker", "6 PT sessions/month", "Spa & sauna access"],
+          notIncluded: [],
+          popular: false,
+        },
+      ],
+      testimonials: [
+        { 
+          name: "Sarah Johnson", 
+          duration: "Member for 2 years", 
+          quote: "Hi Power Gym completely transformed my fitness journey. The trainers are supportive, the equipment is top-notch, and the community keeps me motivated every day.",
+          image: "https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c?q=80&w=1476&auto=format&fit=crop"
+        },
+        { 
+          name: "Michael Chen", 
+          duration: "Member for 1 year", 
+          quote: "I've tried many gyms before, but nothing compares to Hi Power. The 24/7 access fits perfectly with my busy schedule, and I've seen incredible results with their personal training program.",
+          image: "https://images.unsplash.com/photo-1545167622-3a6ac756afa4?q=80&w=1512&auto=format&fit=crop"
+        },
+        { 
+          name: "Emma Rodriguez", 
+          duration: "Member for 8 months", 
+          quote: "The group classes at Hi Power are amazing! The instructors are knowledgeable and motivating. I've made great friends here, and I'm in the best shape of my life.",
+          image: "https://images.unsplash.com/photo-1548690312-e3b507d8c110?q=80&w=1374&auto=format&fit=crop"
+        },
+      ],
+      classSchedule: {
+        headers: ["Time", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        rows: [
+          ["7:00 AM", "Yoga", "HIIT", "Spin", "Yoga", "HIIT", "Bootcamp"],
+          ["9:00 AM", "Pilates", "Strength", "Zumba", "Pilates", "Boxing", "Yoga"],
+          ["12:00 PM", "Express HIIT", "Spin", "Express HIIT", "Spin", "Express HIIT", "-"],
+          ["5:30 PM", "Boxing", "Zumba", "Bootcamp", "Zumba", "Body Pump", "-"],
+          ["7:00 PM", "Strength", "Yoga", "Strength", "Yoga", "-", "-"],
+        ]
+      },
+      shopCategories: {
+        cashew: [
+          { name: "Organic Raw Cashews", price: 12.99, image: "https://images.unsplash.com/photo-1574570908943-4b3b36ed4d65?q=80&w=1471&auto=format&fit=crop" },
+          { name: "Roasted Cashews", price: 14.99, image: "https://images.unsplash.com/photo-1567364786958-869a662e6a78?q=80&w=1470&auto=format&fit=crop" },
+          { name: "Cashew Butter", price: 9.99, image: "https://images.unsplash.com/photo-1674139253048-3af2fb9b8940?q=80&w=1374&auto=format&fit=crop" },
+          { name: "Cashew Milk", price: 5.99, image: "https://images.unsplash.com/photo-1600718951832-3ebd78755912?q=80&w=1470&auto=format&fit=crop" }
+        ],
+        cosmetics: [
+          { name: "Organic Face Cream", price: 24.99, image: "https://images.unsplash.com/photo-1570194065650-d99fb4ee271b?q=80&w=1470&auto=format&fit=crop" },
+          { name: "Aloe Vera Lotion", price: 19.99, image: "https://images.unsplash.com/photo-1608571423539-e951b9af3330?q=80&w=1374&auto=format&fit=crop" },
+          { name: "Natural Lip Balm", price: 4.99, image: "https://images.unsplash.com/photo-1574333186656-996c3f31feb9?q=80&w=1410&auto=format&fit=crop" },
+          { name: "Organic Shampoo", price: 12.99, image: "https://images.unsplash.com/photo-1617602582844-95d2908c43c4?q=80&w=1433&auto=format&fit=crop" }
+        ],
+        candies: [
+          { name: "Honey Candies", price: 6.99, image: "https://images.unsplash.com/photo-1620577438168-b2cc4557352a?q=80&w=1470&auto=format&fit=crop" },
+          { name: "Organic Chocolates", price: 8.99, image: "https://images.unsplash.com/photo-1511381939415-e44015466834?q=80&w=1472&auto=format&fit=crop" },
+          { name: "Fruit Gummies", price: 5.99, image: "https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?q=80&w=1470&auto=format&fit=crop" },
+          { name: "Natural Licorice", price: 4.99, image: "https://images.unsplash.com/photo-1600840249442-3d3ea984cc4a?q=80&w=1376&auto=format&fit=crop" }
+        ],
+        beverages: [
+          { name: "Green Tea", price: 7.99, image: "https://images.unsplash.com/photo-1563836728031-7b14c692289e?q=80&w=1374&auto=format&fit=crop" },
+          { name: "Coconut Water", price: 3.99, image: "https://images.unsplash.com/photo-1536759808958-1a71d5483fc3?q=80&w=1470&auto=format&fit=crop" },
+          { name: "Organic Coffee", price: 12.99, image: "https://images.unsplash.com/photo-1618934387574-bcf3b2560f65?q=80&w=1374&auto=format&fit=crop" },
+          { name: "Fruit Smoothie", price: 5.99, image: "https://images.unsplash.com/photo-1570696516188-ade861b84a49?q=80&w=1470&auto=format&fit=crop" }
+        ],
+        snacks: [
+          { name: "Mixed Nuts", price: 9.99, image: "https://images.unsplash.com/photo-1599626498579-687586e64e35?q=80&w=1470&auto=format&fit=crop" },
+          { name: "Dried Fruit", price: 7.99, image: "https://images.unsplash.com/photo-1581492733932-7e56a369981f?q=80&w=1374&auto=format&fit=crop" },
+          { name: "Trail Mix", price: 8.99, image: "https://images.unsplash.com/photo-1629226900325-8a1d6cbbc1c7?q=80&w=1374&auto=format&fit=crop" },
+          { name: "Granola Bars", price: 6.99, image: "https://images.unsplash.com/photo-1630431341973-02e1b662ec35?q=80&w=1374&auto=format&fit=crop" }
+        ]
+      }
+    };
+
+    // Helper Functions
+    function capitalize(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    function formatPrice(price) {
+      return `$${price.toFixed(2)}`;
+    }
+
+    function calculateTotal() {
+      return state.cart.reduce((total, item) => total + item.price, 0);
+    }
+
+    // DOM Elements
+    const mainContent = document.getElementById('mainContent');
+    const gymBtn = document.getElementById('gymBtn');
+    const shopBtn = document.getElementById('shopBtn');
+    const brandName = document.getElementById('brandName');
+    const cartBtn = document.getElementById('cartBtn');
+    const footer = document.getElementById('footer');
+    const footerBrand = document.getElementById('footerBrand');
+    const footerSpecific1 = document.getElementById('footerSpecific1');
+    const footerSpecific2 = document.getElementById('footerSpecific2');
+    const footerSpecific3 = document.getElementById('footerSpecific3');
+    const footerAddress = document.getElementById('footerAddress');
+    const footerCopyright = document.getElementById('footerCopyright');
+    
+    // Cart Modal Elements
+    const cartModal = document.getElementById('cartModal');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    const checkoutForm = document.getElementById('checkoutForm');
+    const whatsappNumberInput = document.getElementById('whatsappNumber');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    const totalItems = document.getElementById('totalItems');
+    const summaryTotal = document.getElementById('summaryTotal');
+
+    // Event Listeners
+    gymBtn.addEventListener('click', () => setActiveSection('gym'));
+    shopBtn.addEventListener('click', () => setActiveSection('shop'));
+    cartBtn.addEventListener('click', openCartModal);
+    document.querySelector('.modal-close').addEventListener('click', closeCartModal);
+    whatsappNumberInput.addEventListener('input', (e) => state.whatsappNumber = e.target.value);
+    checkoutBtn.addEventListener('click', handleCheckout);
+
+    // When clicking outside the modal, close it
+    window.addEventListener('click', (event) => {
+      if (event.target === cartModal) {
+        closeCartModal();
+      }
+    });
+
+    // Render Functions
+    function renderApp() {
+      if (state.activeSection === 'gym') {
+        renderGymContent();
+      } else {
+        renderShopContent();
+      }
+      updateTheme();
+      updateCartCount();
+    }
+
+    function updateTheme() {
+      if (state.activeSection === 'gym') {
+        document.body.style.backgroundColor = 'var(--gym-bg)';
+        document.body.style.color = 'var(--gym-text)';
+        footer.className = 'gym-footer';
+        gymBtn.className = 'btn btn-gym';
+        shopBtn.className = 'btn btn-outline';
+        brandName.textContent = 'Hi Power Gym';
+        footerBrand.textContent = 'Hi Power Gym';
+        footerSpecific1.textContent = 'Classes';
+        footerSpecific2.textContent = 'Trainers';
+        footerSpecific3.textContent = 'Schedule';
+        footerAddress.innerHTML = `
+          123 Fitness Avenue<br>
+          New York, NY 10001<br><br>
+          Phone: (123) 456-7890<br>
+          Email: info@hipowergym.com
+        `;
+        footerCopyright.textContent = 'Hi Power Gym';
+        cartBtn.style.display = 'none';
+      } else {
+        document.body.style.backgroundColor = 'var(--shop-bg)';
+        document.body.style.color = 'var(--shop-text)';
+        footer.className = 'shop-footer';
+        gymBtn.className = 'btn btn-outline';
+        shopBtn.className = 'btn btn-shop';
+        brandName.textContent = 'Organic Store';
+        footerBrand.textContent = 'Organic Store';
+        footerSpecific1.textContent = 'Shop All';
+        footerSpecific2.textContent = 'Categories';
+        footerSpecific3.textContent = 'Best Sellers';
+        footerAddress.innerHTML = `
+          123 Organic Avenue<br>
+          New York, NY 10001<br><br>
+          Phone: (123) 456-7890<br>
+          Email: info@organicstore.com
+        `;
+        footerCopyright.textContent = 'Organic Store';
+        cartBtn.style.display = 'block';
+      }
+    }
+
+    function renderGymContent() {
+      mainContent.innerHTML = `
+        <div class="content animate-fade-in">
+          <!-- Hero Section -->
+          <section class="hero">
+            <h1>Welcome to Hi Power Gym</h1>
+            <p>Discover our premium fitness equipment and supplements. Build your strength, transform your body.</p>
+            <div>
+              <h2>Unleash Your Inner Strength</h2>
+              <p>Transform your body, elevate your mind, and redefine your limits with Hi Power Gym.</p>
+              <button class="btn btn-gym">Join Now</button>
+            </div>
+          </section>
+
+          <!-- Features Section -->
+          <section class="features gym-features">
+            <h2 class="section-title">Why Choose Hi Power</h2>
+            <div class="feature-grid">
+              <div class="feature-card">
+                <div class="feature-icon">
+                  <i class="fas fa-clock"></i>
+                </div>
+                <h3 class="feature-title">24/7 Access</h3>
+                <p class="feature-description">
+                  Train on your schedule with unlimited access to our facilities day or night.
+                </p>
+              </div>
+
+              <div class="feature-card">
+                <div class="feature-icon">
+                  <i class="fas fa-users"></i>
+                </div>
+                <h3 class="feature-title">Personal Training</h3>
+                <p class="feature-description">
+                  Get customized workout plans and guidance from our expert trainers.
+                </p>
+              </div>
+
+              <div class="feature-card">
+                <div class="feature-icon">
+                  <i class="fas fa-dumbbell"></i>
+                </div>
+                <h3 class="feature-title">Modern Equipment</h3>
+                <p class="feature-description">
+                  Train with state-of-the-art fitness equipment updated regularly.
+                </p>
+              </div>
+
+              <div class="feature-card">
+                <div class="feature-icon">
+                  <i class="fas fa-users"></i>
+                </div>
+                <h3 class="feature-title">Community</h3>
+                <p class="feature-description">
+                  Join a supportive community of fitness enthusiasts and make new friends.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Trainers Section -->
+          <section class="trainers">
+            <h2 class="section-title">Meet Our Trainers</h2>
+            <div class="trainer-grid">
+              ${data.trainers.map(trainer => `
+                <div class="trainer-card">
+                  <img src="${trainer.image}" alt="${trainer.name}" class="trainer-image">
+                  <div class="trainer-info">
+                    <div class="trainer-badge">Trainer</div>
+                    <h3 class="trainer-name">${trainer.name}</h3>
+                    <p class="trainer-specialty">${trainer.specialty}</p>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </section>
+
+          <!-- Membership Plans -->
+          <section class="membership">
+            <h2 class="section-title">Membership Plans</h2>
+            <div class="plan-grid">
+              ${data.membershipPlans.map(plan => `
+                <div class="plan-card ${plan.popular ? 'popular' : ''}">
+                  ${plan.popular ? '<div class="popular-badge">POPULAR</div>' : ''}
+                  <h3 class="plan-title">${plan.title}</h3>
+                  <div class="plan-price">${plan.price}</div>
+                  <p class="plan-description">${plan.description}</p>
+                  
+                  <div class="plan-features">
+                    ${plan.features.map(feature => `
+                      <div class="feature-item">
+                        <i class="fas fa-check feature-icon" style="color: var(--gym-primary);"></i>
+                        <span>${feature}</span>
+                      </div>
+                    `).join('')}
+                    ${plan.notIncluded.map(feature => `
+                      <div class="feature-item unavailable">
+                        <i class="fas fa-times feature-icon"></i>
+                        <span>${feature}</span>
+                      </div>
+                    `).join('')}
+                  </div>
+                  
+                  <button class="btn ${plan.popular ? 'btn-gym' : 'btn-outline'}">
+                    Select Plan
+                  </button>
+                </div>
+              `).join('')}
+            </div>
+          </section>
+
+          <!-- Testimonials -->
+          <section class="testimonials">
+            <h2 class="section-title">What Our Members Say</h2>
+            <div class="testimonial-grid">
+              ${data.testimonials.map(testimonial => `
+                <div class="testimonial-card">
+                  <div class="testimonial-header">
+                    <img src="${testimonial.image}" alt="${testimonial.name}" class="testimonial-avatar">
+                    <div class="testimonial-meta">
+                      <h4>${testimonial.name}</h4>
+                      <p>${testimonial.duration}</p>
+                    </div>
+                  </div>
+                  <div class="testimonial-stars">
+                    ${'★'.repeat(5)}
+                  </div>
+                  <p class="testimonial-text">"${testimonial.quote}"</p>
+                </div>
+              `).join('')}
+            </div>
+          </section>
+
+          <!-- CTA Section -->
+          <section class="hero">
+            <h2>Ready to Start Your Fitness Journey?</h2>
+            <p>Join Hi Power Gym today and take the first step towards a healthier, stronger you.</p>
+            <button class="btn btn-gym">Join Now</button>
+          </section>
+
+         
+        </div>
+      `;
+    }
+
+    function renderShopContent() {
+      mainContent.innerHTML = `
+        <div class="content animate-fade-in shop-section">
+          <!-- Hero Section -->
+          <section class="hero shop-hero">
+            <h1>Welcome to Our Organic Store</h1>
+            <p>Browse our selection of natural and organic products. Fresh, healthy, and delivered straight to your door.</p>
+          </section>
+
+          <!-- Category Tabs -->
+          <div class="categories">
+            ${Object.keys(data.shopCategories).map(category => `
+              <button class="category-btn ${category === state.activeShopCategory ? 'active' : ''}" 
+                      data-category="${category}">
+                ${capitalize(category)}
+              </button>
+            `).join('')}
+          </div>
+
+          <!-- Products -->
+          <section>
+            <h2 class="product-section-title">${capitalize(state.activeShopCategory)} Products</h2>
+            <div class="product-grid">
+              ${data.shopCategories[state.activeShopCategory].map(product => `
+                <div class="product-card">
+                  <div class="product-image-container">
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                  </div>
+                  <div class="product-info">
+                    <div class="product-header">
+                      <h3 class="product-title">${product.name}</h3>
+                      <span class="product-price">${formatPrice(product.price)}</span>
+                    </div>
+                    <button class="btn btn-outline" data-product='${JSON.stringify(product)}'>
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </section>
+        </div>
+      `;
+
+      // Add event listeners to category buttons
+      document.querySelectorAll('.category-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          state.activeShopCategory = button.dataset.category;
+          renderShopContent();
+        });
+      });
+
+      // Add event listeners to "Add to Cart" buttons
+      document.querySelectorAll('[data-product]').forEach(button => {
+        button.addEventListener('click', () => {
+          const product = JSON.parse(button.dataset.product);
+          addToCart(product);
+        });
+      });
+    }
+
+    // Cart Functions
+    function addToCart(product) {
+      state.cart.push(product);
+      updateCartCount();
+    }
+
+    function updateCartCount() {
+      const cartCount = document.querySelector('.cart-count');
+      if (cartCount) {
+        cartCount.textContent = state.cart.length;
+      }
+    }
+
+    function openCartModal() {
+      renderCartItems();
+      cartModal.classList.add('show');
+    }
+
+    function closeCartModal() {
+      cartModal.classList.remove('show');
+    }
+
+    function renderCartItems() {
+      if (state.cart.length === 0) {
+        cartItems.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
+        cartTotal.style.display = 'none';
+        checkoutForm.style.display = 'none';
+      } else {
+        cartItems.innerHTML = state.cart.map((item, index) => `
+          <div class="cart-item">
+            <span>${item.name}</span>
+            <span>${formatPrice(item.price)}</span>
+          </div>
+        `).join('');
+        
+        const total = calculateTotal();
+        cartTotal.innerHTML = `
+          <span>Total:</span>
+          <span>${formatPrice(total)}</span>
+        `;
+        cartTotal.style.display = 'flex';
+        checkoutForm.style.display = 'block';
+      }
+      
+      totalItems.textContent = state.cart.length;
+      summaryTotal.textContent = formatPrice(calculateTotal());
+    }
+
+    function handleCheckout() {
+      if (!state.whatsappNumber) {
+        alert("Please enter your WhatsApp number");
+        return;
+      }
+      
+      const itemList = state.cart.map(item => `${item.name} - ${formatPrice(item.price)}`).join(", ");
+      const total = calculateTotal();
+      
+      const whatsappUrl = `https://wa.me/${state.whatsappNumber}?text=I'd like to order: ${itemList}. Total: ${formatPrice(total)}`;
+      window.open(whatsappUrl, "_blank");
+      
+      // Clear cart after checkout
+      state.cart = [];
+      updateCartCount();
+      closeCartModal();
+    }
+
+    // Initialize App
+    function init() {
+      setActiveSection('gym');
+    }
+
+    function setActiveSection(section) {
+      state.activeSection = section;
+      renderApp();
+    }
+
+    // Start the app
+    init();
+  </script>
+</body>
+</html>
